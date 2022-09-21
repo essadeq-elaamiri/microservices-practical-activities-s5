@@ -60,7 +60,8 @@ public class BankAccount {
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    private double balance;
+    // private double balance;
+    private Double balance; // to avoid error on update
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
     @Enumerated(EnumType.STRING)
@@ -142,6 +143,123 @@ Visit : `http:localhost:8081/h2-console`
 
 #### Tests
 
+`http://localhost:8081/api/bankAccounts/8479595d-5e67-4fec-b903-4ead82fbef72`
+
+````json
+{"id":"8479595d-5e67-4fec-b903-4ead82fbef72","createdAt":null,"balance":183873.7431515834,"currencyCode":"MAD","accountType":"SAVING_ACCOUNT"}
+````
+`http://localhost:8081/api/bankAccounts/`
+
+```json
+[
+    {
+        "id": "8479595d-5e67-4fec-b903-4ead82fbef72",
+        "createdAt": null,
+        "balance": 183873.7431515834,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "fdc40256-9a52-49be-88c3-c2502049bfd4",
+        "createdAt": null,
+        "balance": 289092.2054572128,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "765d1160-70ed-4bd5-83a6-b56dfb53779c",
+        "createdAt": null,
+        "balance": 462604.50693428,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "67072645-6a81-4a5a-8499-9f944b0a9674",
+        "createdAt": null,
+        "balance": 136415.3308109221,
+        "currencyCode": "MAD",
+        "accountType": "CURRENT_ACCOUNT"
+    },
+    {
+        "id": "5b5533b5-404c-448d-8a8d-65dbe0d9c0a1",
+        "createdAt": null,
+        "balance": 79710.39542196134,
+        "currencyCode": "MAD",
+        "accountType": "CURRENT_ACCOUNT"
+    },
+    {
+        "id": "7ee29843-dd5c-44b3-a85f-a8dc7efa8b9f",
+        "createdAt": null,
+        "balance": 315153.6307580424,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "c853d3cc-bd5d-4902-b6a5-95335cff12c2",
+        "createdAt": null,
+        "balance": 273990.5395007575,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "5696c3e0-35ea-46c0-8cc0-090f9a0715c9",
+        "createdAt": null,
+        "balance": 377142.2464782732,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "e071bf08-8839-490d-b00a-c603e7b67a39",
+        "createdAt": null,
+        "balance": 144073.02288542545,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    },
+    {
+        "id": "8d3d767a-85c8-4e03-84ff-f06cf5b71a01",
+        "createdAt": null,
+        "balance": 14056.283920548361,
+        "currencyCode": "MAD",
+        "accountType": "CURRENT_ACCOUNT"
+    }
+]
+```
+
+```
+POST:
+{
+        "createdAt": "2022-09-22",
+        "balance": 377142.02,
+        "currencyCode": "MAD",
+        "accountType": "SAVING_ACCOUNT"
+    }
+Response:
+
+{
+    "id": "3764e924-93e8-4d2d-82d7-7667526ca5d6",
+    "createdAt": "2022-09-22T00:00:00.000+00:00",
+    "balance": 377142.02,
+    "currencyCode": "MAD",
+    "accountType": "SAVING_ACCOUNT"
+}
+```
+
+````json
+PUT:
+{
+"createdAt": "2022-09-22",
+"balance": 200.02
+}
+
+Response:
+{
+"id": "3764e924-93e8-4d2d-82d7-7667526ca5d6",
+"createdAt": "2022-09-22T00:00:00.000+00:00",
+"balance": 200.02,
+"currencyCode": "MAD",
+"accountType": "SAVING_ACCOUNT"
+}
+````
 
 
 #### Notes:

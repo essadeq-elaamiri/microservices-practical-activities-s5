@@ -27,7 +27,8 @@ public class BankAccount {
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    private double balance;
+    // private double balance;
+    private Double balance; // to avoid error on update
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
     @Enumerated(EnumType.STRING)
