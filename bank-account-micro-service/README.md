@@ -131,7 +131,8 @@ In the main point [BankAccountMicroServiceApplication](src/main/java/me/elaamiri
 Visit : `http:localhost:8081/h2-console`
 
 ![H2 db](imgs/h2-db.png)
-#### Controllers
+
+#### Controllers (Web)
 
 [BankAccountRepository](src/main/java/me/elaamiri/bankaccountmicroservice/repositories/BankAccountRepository.java)
 
@@ -139,3 +140,10 @@ Visit : `http:localhost:8081/h2-console`
 
 ````
 
+#### Tests
+
+
+
+#### Notes:
+- With SAOP , we must return XML result necessarily 
+- With REST, we are free to use JSON, XML
