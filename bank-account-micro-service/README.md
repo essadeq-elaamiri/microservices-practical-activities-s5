@@ -348,3 +348,57 @@ and test the collection
 ![postman](./imgs/import_postman.PNG)
 
 _______________
+
+#### Spring Data Rest
+If we want to create a REST API without the need to use a service layer, we can use `Spring data REST`, to generate a basic
+REST API.
+to use it we should add the dependency:
+
+```xml
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-rest</artifactId>
+</dependency>
+```
+Now Spring will create a  generic Rest API
+To create be able to use the Rest of an entity we should use the
+annotation `@RepositoryRestResource` to the Repository,
+By that annotation, we tell Spring to create a Restful web service in starting 
+for this entity, So it creates all the routes needed to manage the `BankAccount` entity.
+
+
+````java
+@Repository
+@RepositoryRestResource
+public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+}
+````
+
+Now when we visit `http://localhost:8081/bankAccounts/` we get the same result as 
+`http://localhost:8081/api/bankAccounts/`
+
+Lets test : GET: `http://localhost:8081/bankAccounts/84bf2d10-5c96-4da6-abf2-051a5ea6e0c1`
+
+```json
+{
+  "createdAt" : null,
+  "balance" : 320654.3739183558,
+  "currencyCode" : "MAD",
+  "accountType" : "SAVING_ACCOUNT",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8081/bankAccounts/84bf2d10-5c96-4da6-abf2-051a5ea6e0c1"
+    },
+    "bankAccount" : {
+      "href" : "http://localhost:8081/bankAccounts/84bf2d10-5c96-4da6-abf2-051a5ea6e0c1"
+    }
+  }
+}
+```
+This method support the pagination by default.
+
+We can add a function in the repository and access it in the API:
+
+```java
+
+```
