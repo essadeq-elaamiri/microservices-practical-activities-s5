@@ -490,3 +490,110 @@ Visiting  : GET: `http://localhost:8081/bankAccounts/search/findByAccountType?ac
 ```
 
 #### Projections in Spring Data REST
+By this feature we can demand a custom output, lets say for example
+we want the objet of output just with the balance and the type:
+We should creat an interface `BankAccountProjection` in `entities` package
+
+```java
+
+@Projection(name = "projection1" , types = BankAccount.class)
+public interface AccountProjection {
+    /*
+    needed attributes
+     */
+
+    public Double getBalance();
+    public AccountType getAccountType();
+}
+
+```
+To use the projection : ex. GET:`http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT&projection=projection1`
+
+```json
+{
+  "_embedded" : {
+    "bankAccounts" : [ {
+      "balance" : 189805.5235331379,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/1a42e826-d39f-4420-ba0d-825c01375520"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/1a42e826-d39f-4420-ba0d-825c01375520{?projection}",
+          "templated" : true
+        }
+      }
+    }, {
+      "balance" : 458320.38515820773,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/25e2baad-4c3f-4c9f-a124-fc557e4ccbf2"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/25e2baad-4c3f-4c9f-a124-fc557e4ccbf2{?projection}",
+          "templated" : true
+        }
+      }
+    }, {
+      "balance" : 249186.54091118442,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/ccfa0128-3139-42ea-ab54-7a0967d3bc0b"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/ccfa0128-3139-42ea-ab54-7a0967d3bc0b{?projection}",
+          "templated" : true
+        }
+      }
+    }, {
+      "balance" : 484152.1336563378,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/57299554-f7fd-4527-a404-a7f40a42c6cb"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/57299554-f7fd-4527-a404-a7f40a42c6cb{?projection}",
+          "templated" : true
+        }
+      }
+    }, {
+      "balance" : 72998.7866422046,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/f03a0f54-5112-4a25-ac47-8905542bf10a"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/f03a0f54-5112-4a25-ac47-8905542bf10a{?projection}",
+          "templated" : true
+        }
+      }
+    }, {
+      "balance" : 265320.69103873917,
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/b36ef7e1-444c-4d0f-a370-989a55860d12"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/b36ef7e1-444c-4d0f-a370-989a55860d12{?projection}",
+          "templated" : true
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT&projection=projection1"
+    }
+  }
+}
+```
+
+With this extraordinary feature we can custom the output of our REST API.
+
+
