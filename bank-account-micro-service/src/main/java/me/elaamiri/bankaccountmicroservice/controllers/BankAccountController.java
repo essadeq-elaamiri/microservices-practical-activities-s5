@@ -42,6 +42,9 @@ public class BankAccountController {
     @PutMapping("/bankAccounts/{bankAccountId}")
     public BankAccount updateBankAccount(@RequestBody(required = true) BankAccount bankAccount, @PathVariable String bankAccountId){
         BankAccount bankAccount1 = bankAccountRepository.findById(bankAccountId).orElse(null);
+        /**
+         * Tests to filter if the user does not update a field
+         */
         if(bankAccount1 == null) new RuntimeException(String.format("No bankAccount with the ID: %s found !", bankAccountId));
         if (bankAccount.getBalance() != null) bankAccount1.setBalance(bankAccount.getBalance());
         if (bankAccount.getCreatedAt() != null) bankAccount1.setCreatedAt(bankAccount.getCreatedAt());

@@ -28,6 +28,7 @@ public class BankAccount {
     @Temporal(TemporalType.DATE)
     private Date createdAt;
     // private double balance;
+
     private Double balance; // to avoid error on update
     @Enumerated(EnumType.STRING)
     private CurrencyCode currencyCode;
