@@ -401,4 +401,92 @@ We can add a function in the repository and access it in the API:
 
 ```java
 
+@Repository
+@RepositoryRestResource
+public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+    List<BankAccount> findByAccountType(AccountType accountType);
+}
+
 ```
+
+Visiting  : GET: `http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT`
+
+```json
+{
+  "_embedded" : {
+    "bankAccounts" : [ {
+      "createdAt" : null,
+      "balance" : 339803.30055158166,
+      "currencyCode" : "MAD",
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/cb84546a-3f52-4064-8d5e-c7a0edb56512"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/cb84546a-3f52-4064-8d5e-c7a0edb56512"
+        }
+      }
+    }, {
+      "createdAt" : null,
+      "balance" : 79752.819672261,
+      "currencyCode" : "MAD",
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/612b6411-6c95-4ce7-96cd-02a02d4aec0f"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/612b6411-6c95-4ce7-96cd-02a02d4aec0f"
+        }
+      }
+    }, {
+      "createdAt" : null,
+      "balance" : 483333.4589509526,
+      "currencyCode" : "MAD",
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/70d26a0c-3aaf-4f40-be5d-9754c4cef973"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/70d26a0c-3aaf-4f40-be5d-9754c4cef973"
+        }
+      }
+    }, {
+      "createdAt" : null,
+      "balance" : 403826.0998516515,
+      "currencyCode" : "MAD",
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/46147c41-1812-4851-855c-9b1405a33ba1"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/46147c41-1812-4851-855c-9b1405a33ba1"
+        }
+      }
+    }, {
+      "createdAt" : null,
+      "balance" : 141420.15969475606,
+      "currencyCode" : "MAD",
+      "accountType" : "SAVING_ACCOUNT",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8081/bankAccounts/fa9949c0-0d6c-4dcb-a20a-5c01e04bc44c"
+        },
+        "bankAccount" : {
+          "href" : "http://localhost:8081/bankAccounts/fa9949c0-0d6c-4dcb-a20a-5c01e04bc44c"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT"
+    }
+  }
+}
+```
+
+#### Projections in Spring Data REST
