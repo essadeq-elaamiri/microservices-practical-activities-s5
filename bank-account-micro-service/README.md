@@ -317,3 +317,34 @@ Response:
 #### Notes:
 - With SAOP , we must return XML result necessarily 
 - With REST, we are free to use JSON, XML
+
+_______________________
+
+#### Adding Swagger Documentation to our API
+
+To do that, we should use the dependency  to `pom.xml`:
+
+````xml
+<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.6.11</version>
+</dependency>
+
+
+````
+
+Visiting the API documentation by : `http://localhost:8081/swagger-ui/index.html`
+
+![openapi](./imgs/openapi.PNG)
+
+When we click `/v3/api-docs` it returns the documentation as JSON, we can after use it on any testing app like `Postman`
+it presents the interface of our web service, and all its end points (inputs & outputs).
+
+To use the documentation with `Postman`, we can import it by the url `http://localhost:8081/v3/api-docs` .
+and test the collection
+
+![postman](./imgs/import_postman.PNG)
+
+_______________
