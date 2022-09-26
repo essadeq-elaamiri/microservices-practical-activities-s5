@@ -1,5 +1,6 @@
 package me.elaamiri.bankaccountmicroservice.services;
 
+import me.elaamiri.bankaccountmicroservice.dto.BankAccountDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
 import me.elaamiri.bankaccountmicroservice.enumerations.AccountType;
 import me.elaamiri.bankaccountmicroservice.repositories.BankAccountRepository;
@@ -14,6 +15,11 @@ public class BankAccountServiceImp implements BankAccountService {
         /*
         Doing some 'metier' code
          */
+        return null;
+    }
+
+    @Override
+    public BankAccountDTO insertAccount(BankAccountDTO bankAccountDTO) {
         return null;
     }
 }
