@@ -718,5 +718,44 @@ RES
 ![dtos](./imgs/test_dtos.PNG)
 
 
+#### Mappers 
 
+Interface
+```java
+@Component
+public interface BankAccountMapper {
+    BankAccount fromBankAccountRequestDTO(BankAccountRequestDTO bankAccountRequestDTO);
+    BankAccountResponseDTO fromBankAccount(BankAccount bankAccount );
+}
 
+```
+
+Impl
+
+```java
+@Component
+public class BankAccountMapperImp implements BankAccountMapper{
+    @Override
+    public BankAccount fromBankAccountRequestDTO(BankAccountRequestDTO bankAccountRequestDTO) {
+        //
+        BankAccount bankAccount = new BankAccount();
+        BeanUtils.copyProperties(bankAccountRequestDTO, bankAccount);
+        return bankAccount;
+    }
+
+    @Override
+    public BankAccountResponseDTO fromBankAccount(BankAccount bankAccount) {
+        BankAccountResponseDTO bankAccountResponseDTO = new BankAccountResponseDTO();
+        BeanUtils.copyProperties(bankAccount, bankAccountResponseDTO);
+        return bankAccountResponseDTO;
+    }
+}
+```
+
+Or we can use `ModuleMpper` [ http://modelmapper.org/getting-started/ ]
+
+Usage 
+
+```java
+
+```
