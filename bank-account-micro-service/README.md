@@ -488,6 +488,19 @@ Visiting  : GET: `http://localhost:8081/bankAccounts/search/findByAccountType?ac
   }
 }
 ```
+By adding `@RestRessource()` we give a path to access the method 
+
+```java
+@Repository
+@RepositoryRestResource
+public interface BankAccountRepository extends JpaRepository<BankAccount, String> {
+
+    @RestResource(path = "/byType")
+    List<BankAccount> findByAccountType(@Param("type") AccountType accountType);
+}
+```
+So we can access with : GET: `http://localhost:8081/bankAccounts/search/byType?type=SAVING_ACCOUNT`
+
 
 #### Projections in Spring Data REST
 By this feature we can demand a custom output, lets say for example
@@ -595,5 +608,6 @@ To use the projection : ex. GET:`http://localhost:8081/bankAccounts/search/findB
 ```
 
 With this extraordinary feature we can custom the output of our REST API.
+
 
 
