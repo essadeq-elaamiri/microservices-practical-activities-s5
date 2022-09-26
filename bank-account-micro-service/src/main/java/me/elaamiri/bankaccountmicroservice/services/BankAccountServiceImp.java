@@ -5,6 +5,7 @@ import me.elaamiri.bankaccountmicroservice.dto.BankAccountRequestDTO;
 import me.elaamiri.bankaccountmicroservice.dto.BankAccountResponseDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
 import me.elaamiri.bankaccountmicroservice.enumerations.AccountType;
+import me.elaamiri.bankaccountmicroservice.mappers.BankAccountMapper;
 import me.elaamiri.bankaccountmicroservice.repositories.BankAccountRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,10 @@ import java.util.UUID;
 @Transactional // import org.springframework.transaction.annotation.Transactional;
 public class BankAccountServiceImp implements BankAccountService {
     BankAccountRepository bankAccountRepository;
-    public BankAccountServiceImp(BankAccountRepository bankAccountRepository){
+    BankAccountMapper bankAccountMapper;
+    public BankAccountServiceImp(BankAccountRepository bankAccountRepository,  BankAccountMapper bankAccountMapper){
         this.bankAccountRepository  = bankAccountRepository;
+        this.bankAccountMapper = bankAccountMapper;
     }
     @Override
     public BankAccount insertAccount(Double initialBalance, AccountType accountType) {
@@ -30,6 +33,7 @@ public class BankAccountServiceImp implements BankAccountService {
     @Override
     public BankAccountResponseDTO insertAccount(BankAccountRequestDTO bankAccountDTO) {
         // Mapping
+        /*
         BankAccount bankAccount = BankAccount.builder()
                 .id(UUID.randomUUID().toString())
                 .accountType(bankAccountDTO.getAccountType())
@@ -37,8 +41,11 @@ public class BankAccountServiceImp implements BankAccountService {
                 .createdAt(new Date())
                 .balance(bankAccountDTO.getBalance())
                 .build();
-        BankAccount savedAccount = bankAccountRepository.save(bankAccount);
 
+         */
+        // Using mappers
+        BankAccount savedAccount = bankAccountRepository.save(bankAccountMapper.fromBankAccountRequestDTO(bankAccountDTO));
+        /*
         return BankAccountResponseDTO.builder()
                 .id(savedAccount.getId())
                 .balance(savedAccount.getBalance())
@@ -46,6 +53,9 @@ public class BankAccountServiceImp implements BankAccountService {
                 .accountType(savedAccount.getAccountType())
                 .currencyCode(savedAccount.getCurrencyCode())
                 .build();
+
+         */
+        return bankAccountMapper.fromBankAccount(savedAccount);
     }
 
 }

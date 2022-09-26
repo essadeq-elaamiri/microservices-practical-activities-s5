@@ -757,5 +757,50 @@ Or we can use `ModuleMpper` [ http://modelmapper.org/getting-started/ ]
 Usage 
 
 ```java
+@Service
+@Transactional // import org.springframework.transaction.annotation.Transactional;
+public class BankAccountServiceImp implements BankAccountService {
+    BankAccountRepository bankAccountRepository;
+    BankAccountMapper bankAccountMapper;
+    public BankAccountServiceImp(BankAccountRepository bankAccountRepository){
+        this.bankAccountRepository  = bankAccountRepository;
+    }
+    @Override
+    public BankAccount insertAccount(Double initialBalance, AccountType accountType) {
+        /*
+        Doing some 'metier' code
+         */
+        return null;
+    }
 
+    @Override
+    public BankAccountResponseDTO insertAccount(BankAccountRequestDTO bankAccountDTO) {
+        // Mapping
+        /*
+        BankAccount bankAccount = BankAccount.builder()
+                .id(UUID.randomUUID().toString())
+                .accountType(bankAccountDTO.getAccountType())
+                .currencyCode(bankAccountDTO.getCurrencyCode())
+                .createdAt(new Date())
+                .balance(bankAccountDTO.getBalance())
+                .build();
+
+         */
+        // Using mappers
+        BankAccount savedAccount = bankAccountRepository.save(bankAccountMapper.fromBankAccountRequestDTO(bankAccountDTO));
+        /*
+        return BankAccountResponseDTO.builder()
+                .id(savedAccount.getId())
+                .balance(savedAccount.getBalance())
+                .createdAt(savedAccount.getCreatedAt())
+                .accountType(savedAccount.getAccountType())
+                .currencyCode(savedAccount.getCurrencyCode())
+                .build();
+
+         */
+        return bankAccountMapper.fromBankAccount(savedAccount);
+    }
+
+}
 ```
+
