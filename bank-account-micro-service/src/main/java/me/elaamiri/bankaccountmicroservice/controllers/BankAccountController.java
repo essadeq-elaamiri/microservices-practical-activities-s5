@@ -1,7 +1,10 @@
 package me.elaamiri.bankaccountmicroservice.controllers;
 
+import me.elaamiri.bankaccountmicroservice.dto.BankAccountRequestDTO;
+import me.elaamiri.bankaccountmicroservice.dto.BankAccountResponseDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
 import me.elaamiri.bankaccountmicroservice.repositories.BankAccountRepository;
+import me.elaamiri.bankaccountmicroservice.services.BankAccountService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +15,10 @@ import java.util.UUID;
 public class BankAccountController {
     // Dependency injection by constructor
     BankAccountRepository bankAccountRepository;
-    public BankAccountController(BankAccountRepository bankAccountRepository){
+    BankAccountService bankAccountService;
+    public BankAccountController(BankAccountRepository bankAccountRepository,BankAccountService bankAccountService){
         this.bankAccountRepository = bankAccountRepository;
+        this.bankAccountService = bankAccountService;
     }
 
 
@@ -34,9 +39,10 @@ public class BankAccountController {
     }
 
     @PostMapping("/bankAccounts")
-    public BankAccount saveBankAccount(@RequestBody(required = true) BankAccount bankAccount){
-        if(bankAccount.getId() == null ) bankAccount.setId(UUID.randomUUID().toString());
-        return  bankAccountRepository.save(bankAccount);
+    public BankAccountResponseDTO saveBankAccount(@RequestBody(required = true) BankAccountRequestDTO bankAccount){
+        //if(bankAccount.getId() == null ) bankAccount.setId(UUID.randomUUID().toString());
+        //return  bankAccountRepository.save(bankAccount);
+        return bankAccountService.insertAccount(bankAccount);
     }
 
     @PutMapping("/bankAccounts/{bankAccountId}")

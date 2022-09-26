@@ -704,6 +704,18 @@ called `BankAccountMapper` to keep do this for us, to avoid the code repeating;
 
 No we can edit the controller code and use the DTOs instead of the Entities.
 
+```java 
+@PostMapping("/bankAccounts")
+    public BankAccountResponseDTO saveBankAccount(@RequestBody(required = true) BankAccountRequestDTO bankAccount){
+        //if(bankAccount.getId() == null ) bankAccount.setId(UUID.randomUUID().toString());
+        //return  bankAccountRepository.save(bankAccount);
+        return bankAccountService.insertAccount(bankAccount);
+    }
+```
+
+RES
+
+![dtos](./imgs/test_dtos.PNG)
 
 
 
