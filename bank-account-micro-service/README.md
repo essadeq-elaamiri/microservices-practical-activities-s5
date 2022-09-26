@@ -804,3 +804,8 @@ public class BankAccountServiceImp implements BankAccountService {
 }
 ```
 
+// Tested 
+Exception:
+<pre>
+ids for this class must be manually assigned before calling save(): me.elaamiri.bankaccountmicroservice.entities.BankAccount
+</pre>
