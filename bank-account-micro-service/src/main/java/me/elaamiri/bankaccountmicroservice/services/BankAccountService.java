@@ -5,7 +5,9 @@ import me.elaamiri.bankaccountmicroservice.dto.BankAccountRequestDTO;
 import me.elaamiri.bankaccountmicroservice.dto.BankAccountResponseDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
 import me.elaamiri.bankaccountmicroservice.enumerations.AccountType;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface BankAccountService {
     // Without DTO
     public BankAccount insertAccount(Double initialBalance, AccountType accountType);

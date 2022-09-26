@@ -611,6 +611,100 @@ With this extraordinary feature we can custom the output of our REST API.
 
 ________________
 
-#### Service layer
+
+
+#### Creating DTOs
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class BankAccountResponseDTO {
+    private String id;
+    private Date createdAt;
+    // private double balance;
+    private Double balance; // to avoid error on update
+    private CurrencyCode currencyCode;
+    private AccountType accountType;
+}
+
+//--------
+
+public class BankAccountRequestDTO {
+    /**
+     * For request DTOs we keep just what we need in input
+     */
+    private Double balance; // to avoid error on update
+    private CurrencyCode currencyCode;
+    private AccountType accountType;
+}
+```
+
+
+#### Service layer (Interface & implementation)
+`@Service`
+
+```java
+@Service
+public interface BankAccountService {
+    // Without DTO
+    public BankAccount insertAccount(Double initialBalance, AccountType accountType);
+
+    // using DTOs: that is one cause why we should use DTOs
+    public BankAccountResponseDTO insertAccount(BankAccountRequestDTO bankAccountDTO);
+}
+
+```
+
+Implementation , do not forget the `@Service` and `@Transactional` annotations.
+
+````java 
+@Service
+@Transactional // import org.springframework.transaction.annotation.Transactional;
+public class BankAccountServiceImp implements BankAccountService {
+    BankAccountRepository bankAccountRepository;
+    public BankAccountServiceImp(BankAccountRepository bankAccountRepository){
+        this.bankAccountRepository  = bankAccountRepository;
+    }
+    @Override
+    public BankAccount insertAccount(Double initialBalance, AccountType accountType) {
+        /*
+        Doing some 'metier' code
+         */
+        return null;
+    }
+
+    @Override
+    public BankAccountResponseDTO insertAccount(BankAccountRequestDTO bankAccountDTO) {
+        // Mapping
+        BankAccount bankAccount = BankAccount.builder()
+                .id(UUID.randomUUID().toString())
+                .accountType(bankAccountDTO.getAccountType())
+                .currencyCode(bankAccountDTO.getCurrencyCode())
+                .createdAt(new Date())
+                .balance(bankAccountDTO.getBalance())
+                .build();
+        BankAccount savedAccount = bankAccountRepository.save(bankAccount);
+
+        return BankAccountResponseDTO.builder()
+                .id(savedAccount.getId())
+                .balance(savedAccount.getBalance())
+                .createdAt(savedAccount.getCreatedAt())
+                .accountType(savedAccount.getAccountType())
+                .currencyCode(savedAccount.getCurrencyCode())
+                .build();
+    }
+
+}
+
+````
+
+In this case we did a manual mapping, but we should create another class 
+called `BankAccountMapper` to keep do this for us, to avoid the code repeating;
+
+No we can edit the controller code and use the DTOs instead of the Entities.
+
+
+
 
 
