@@ -609,5 +609,8 @@ To use the projection : ex. GET:`http://localhost:8081/bankAccounts/search/findB
 
 With this extraordinary feature we can custom the output of our REST API.
 
+________________
+
+#### Service layer
 
 
