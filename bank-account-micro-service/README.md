@@ -1059,4 +1059,72 @@ query{
 </details>
 
 ### GraphQL Exceptions
+ 
+GraphQL returns an object `data` if the request is successful, or an object `errors`, if NOT.
+In case of an error, graphQL generate a standard exception, and to customise or handle those exceptions, we can use the `Exception Handler`
+Our package `exceptions` where we put the exception handlers.
+
+Our handler should looks like this :
+
+<details>
+
+
+```java
+
+@Component
+public class BankAccountsDataFetcherExceptionResolver extends DataFetcherExceptionResolverAdapter {
+    @Override
+    protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
+        return new GraphQLError() {
+            @Override
+            public String getMessage() {
+                return ex.getMessage();
+            }
+
+            @Override
+            public List<SourceLocation> getLocations() {
+                return null;
+            }
+
+            @Override
+            public ErrorClassification getErrorType() {
+                return null;
+            }
+        };
+    }
+}
+
+```
+
+Now when we have an exception we will no more get the non-understandable messages,
+but the exception messages -ex.
+
+````graphql
+query{
+    bankAccountById(id: "42"){
+        balance
+    }
+
+}
+````
+
+RES:
+
+```json
+{
+  "errors": [
+    {
+      "message": "Account with ID: 42 Not Found !"
+    }
+  ],
+  "data": {
+    "bankAccountById": null
+  }
+}
+```
+
+</details>
+
+
+
 ### GraphQL Mutations
