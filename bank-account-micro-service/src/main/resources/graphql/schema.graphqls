@@ -19,7 +19,13 @@ type BankAccount {
     createdAt: String,
     balance: Float,
     currencyCode: String,
-    accountType: String
+    accountType: String,
+    customer: Customer
+}
+
+type Customer{
+    id: ID,
+    name: String
 }
 
 input BankAccountRequestDTO { ## We have to have a class with the same name

@@ -1,5 +1,6 @@
 package me.elaamiri.bankaccountmicroservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Customer {
     private long id;
     private String name;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "customer")
     private List<BankAccount> bankAccounts;
 

@@ -1328,5 +1328,69 @@ mutation($id: String){
 </details>
 
 // Adding some extra entities and get thing more complicated (Relations)
+// There is a lot of updates, please consult the files (GraphQL schema for example)
 
+SOME RESULTS
 
+<details>
+
+```graphql
+query{
+  bankAccountsByType(accountType:"CURRENT_ACCOUNT"){
+    id, 
+    balance,
+    accountType,
+    customer{
+      id,
+      name
+    }
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "bankAccountsByType": [
+      {
+        "id": "ab359036-165c-42fd-9dfa-cb2efa7de0bf",
+        "balance": 359228.7976385458,
+        "accountType": "CURRENT_ACCOUNT",
+        "customer": {
+          "id": 1,
+          "name": "Laila"
+        }
+      },
+      {
+        "id": "210291c8-3834-4de5-ae38-b6a3f17cf9bc",
+        "balance": 422573.2299045131,
+        "accountType": "CURRENT_ACCOUNT",
+        "customer": {
+          "id": 2,
+          "name": "Essadeq"
+        }
+      },
+      {
+        "id": "20e884bf-2589-4e47-8aa2-75990a33e973",
+        "balance": 38039.585451805244,
+        "accountType": "CURRENT_ACCOUNT",
+        "customer": {
+          "id": 3,
+          "name": "Reda"
+        }
+      },
+      {
+        "id": "cfafd654-97fe-4f89-a800-8f81f428ba94",
+        "balance": 367803.148824886,
+        "accountType": "CURRENT_ACCOUNT",
+        "customer": {
+          "id": 3,
+          "name": "Reda"
+        }
+      }
+    ]
+  }
+}
+```
+
+</details>

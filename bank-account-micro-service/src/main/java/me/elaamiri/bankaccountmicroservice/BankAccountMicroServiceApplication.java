@@ -49,6 +49,7 @@ public class BankAccountMicroServiceApplication {
 								.accountType(Math.random()>0.5 ? AccountType.CURRENT_ACCOUNT : AccountType.SAVING_ACCOUNT)
 								.balance(2000+ (Math.random() * 500000))
 								.currencyCode(CurrencyCode.MAD)
+								.customer(customer)
 								.build();
 						BankAccount saved = bankAccountRepository.save(bankAccount);
 						// add it to customer
