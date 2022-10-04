@@ -1394,3 +1394,7 @@ query{
 ```
 
 </details>
+
+Note:
+**Projections** are for Spring Data Rest
+**DTOs** for RestControllers
