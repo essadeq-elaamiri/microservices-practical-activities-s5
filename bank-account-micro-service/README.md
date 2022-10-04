@@ -1254,3 +1254,77 @@ RES :
 }
 ````
 
+// Consult the files for Update and  delete methods (Mutations).
+
+[The Controller ](./src/main/java/me/elaamiri/bankaccountmicroservice/controllers/BankAccountGraphQLController.java)
+[The Schema ](./src/main/resources/graphql/schema.graphqls)
+
+TESTS :
+
+<details>
+
+Updating
+
+```graphql
+mutation(
+  $id: String,
+  $type: String, 
+	$balance: Float,
+	$currency: String){
+  updateBankAccount(
+    accountId: $id,
+    bankAccount:{
+    accountType: $type,
+    balance: $balance,
+    currencyCode: $currency
+  }){
+    id,
+    accountType,
+    balance,
+    currencyCode
+  }
+}
+
+```
+````json
+{"id": "b572c12d-f546-4f0b-a35b-37d2c6384319",
+"type": "SAVING_ACCOUNT",
+"balance": 1542.2,
+"currency": "MAD"}
+
+---- RES
+{
+  "data": {
+    "updateBankAccount": {
+      "id": "b572c12d-f546-4f0b-a35b-37d2c6384319",
+      "accountType": "SAVING_ACCOUNT",
+      "balance": 1542.2,
+      "currencyCode": "MAD"
+    }
+  }
+}
+````
+
+Deleting
+
+```graphql
+mutation($id: String){
+  deleteBankAccount(accountId: $id)
+}
+
+```
+
+```json
+{"id": "b572c12d-f546-4f0b-a35b-37d2c6384319"}
+-----
+{
+  "data": {
+    "deleteBankAccount": "b572c12d-f546-4f0b-a35b-37d2c6384319"
+  }
+}
+
+```
+
+</details>
+
+
