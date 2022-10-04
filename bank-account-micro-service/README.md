@@ -874,8 +874,43 @@ Now we are going to create our GraphQL Based controller.
 #### Creating schema 
 `ressources/graphql/schema.graphqls`
 This file will describe the service interface
-```json
 
+```graphql
 
+type Query {
+    # that for requests (Consultation)
+    # a request that returns a list of BankAccounts
+    bankAccounts: [BankAccount]
+}
+
+type BankAccount {
+    id: String,
+    createdAt: String,
+    balance: Float,
+    currency: String,
+    type: String
+}
+```
+
+#### creating the controller 
+
+BankAccountGraphQLController
+
+```java
+
+@Controller
+public class BankAccountGraphQLController {
+    private BankAccountRepository bankAccountRepository;
+
+    public BankAccountGraphQLController(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
+    // Using the same names as in the GraphQL Schema
+    @QueryMapping // mapping the function to the graphql query
+    public List<BankAccount> bankAccounts(){
+        return  bankAccountRepository.findAll();
+    }
+}
 ```
 
