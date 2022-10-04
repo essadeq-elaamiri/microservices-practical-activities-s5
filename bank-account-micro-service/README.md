@@ -137,6 +137,8 @@ Visit : `http:localhost:8081/h2-console`
 
 [BankAccountController](src/main/java/me/elaamiri/bankaccountmicroservice/controllers/BankAccountController.java)
 
+<details>
+
 ````java
 
 @RestController
@@ -193,6 +195,8 @@ public class BankAccountController {
 
 ````
 
+</details>
+
 #### Tests
 
 `http://localhost:8081/api/bankAccounts/8479595d-5e67-4fec-b903-4ead82fbef72`
@@ -201,6 +205,8 @@ public class BankAccountController {
 {"id":"8479595d-5e67-4fec-b903-4ead82fbef72","createdAt":null,"balance":183873.7431515834,"currencyCode":"MAD","accountType":"SAVING_ACCOUNT"}
 ````
 `http://localhost:8081/api/bankAccounts/`
+
+<details>
 
 ```json
 [
@@ -276,6 +282,8 @@ public class BankAccountController {
     }
 ]
 ```
+
+</details>
 
 ```json
 POST:
@@ -411,6 +419,8 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, String
 
 Visiting  : GET: `http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT`
 
+<details>
+
 ```json
 {
   "_embedded" : {
@@ -488,6 +498,9 @@ Visiting  : GET: `http://localhost:8081/bankAccounts/search/findByAccountType?ac
   }
 }
 ```
+
+</details>
+
 By adding `@RestRessource()` we give a path to access the method 
 
 ```java
@@ -521,6 +534,7 @@ public interface AccountProjection {
 
 ```
 To use the projection : ex. GET:`http://localhost:8081/bankAccounts/search/findByAccountType?accountType=SAVING_ACCOUNT&projection=projection1`
+<details>
 
 ```json
 {
@@ -607,6 +621,8 @@ To use the projection : ex. GET:`http://localhost:8081/bankAccounts/search/findB
 }
 ```
 
+</details>
+
 With this extraordinary feature we can custom the output of our REST API.
 
 ________________
@@ -658,6 +674,8 @@ public interface BankAccountService {
 
 Implementation , do not forget the `@Service` and `@Transactional` annotations.
 
+<details>
+
 ````java 
 @Service
 @Transactional // import org.springframework.transaction.annotation.Transactional;
@@ -698,6 +716,7 @@ public class BankAccountServiceImp implements BankAccountService {
 }
 
 ````
+</details>
 
 In this case we did a manual mapping, but we should create another class 
 called `BankAccountMapper` to keep do this for us, to avoid the code repeating;
@@ -756,14 +775,17 @@ Or we can use `ModuleMpper` [ http://modelmapper.org/getting-started/ ]
 
 Usage 
 
+<details>
+
 ```java
 @Service
 @Transactional // import org.springframework.transaction.annotation.Transactional;
 public class BankAccountServiceImp implements BankAccountService {
     BankAccountRepository bankAccountRepository;
     BankAccountMapper bankAccountMapper;
-    public BankAccountServiceImp(BankAccountRepository bankAccountRepository){
+    public BankAccountServiceImp(BankAccountRepository bankAccountRepository, BankAccountMapper bankAccountMapper){
         this.bankAccountRepository  = bankAccountRepository;
+        this.bankAccountMapper = bankAccountMapper;
     }
     @Override
     public BankAccount insertAccount(Double initialBalance, AccountType accountType) {
@@ -803,6 +825,8 @@ public class BankAccountServiceImp implements BankAccountService {
 
 }
 ```
+
+</details>
 
 // Tested 
 Exception:
