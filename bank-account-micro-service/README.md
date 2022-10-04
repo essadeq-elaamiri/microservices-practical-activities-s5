@@ -974,5 +974,89 @@ type BankAccount {
 ````
 </fieldset>
 
+OTHER queries examples with the Controller Methods
 
+<details>
 
+```graphql
+type Query {
+    # that for requests (Consultation)
+    # a request that returns a list of BankAccounts
+    bankAccounts: [BankAccount],
+    bankAccountsByType(accountType:String):[BankAccount],
+    bankAccountById(id:String): BankAccount # return a BankAccount Obj
+}
+
+type BankAccount {
+    id: String,
+    createdAt: String,
+    balance: Float,
+    currencyCode: String,
+    accountType: String
+}
+```
+
+```java
+@Controller
+public class BankAccountGraphQLController {
+    private BankAccountRepository bankAccountRepository;
+
+    public BankAccountGraphQLController(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
+    // Using the same names as in the GraphQL Schema
+    @QueryMapping // mapping the function to the graphql query
+    public List<BankAccount> bankAccounts(){
+        return  bankAccountRepository.findAll();
+    }
+
+    @QueryMapping
+    public List<BankAccount> bankAccountsByType(@Argument String accountType){
+        System.out.println(AccountType.valueOf(accountType));
+        return bankAccountRepository.findByAccountType(AccountType.valueOf(accountType));
+    }
+
+    @QueryMapping
+    public BankAccount bankAccountById(@Argument String id){
+        return bankAccountRepository.findById(id)
+                .orElseThrow(()->
+                        new RuntimeException(String.format("Account with ID: %s Not Found !", id)));
+    }
+}
+
+```
+
+// Executing 
+
+````graphql
+query{
+  bankAccountsByType(accountType:"SAVING_ACCOUNT"){
+    accountType, balance
+  }
+  
+}
+````
+// RES
+
+```json
+{
+  "data": {
+    "bankAccountsByType": [
+      {
+        "accountType": "SAVING_ACCOUNT",
+        "balance": 98327.28222188297
+      },
+      {
+        "accountType": "SAVING_ACCOUNT",
+        "balance": 241621.43828841625
+      }
+    ]
+  }
+}
+```
+
+</details>
+
+### GraphQL Exceptions
+### GraphQL Mutations
