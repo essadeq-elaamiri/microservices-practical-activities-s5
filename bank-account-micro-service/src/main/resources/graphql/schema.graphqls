@@ -1,13 +1,15 @@
 type Query {
     # that for requests (Consultation)
     # a request that returns a list of BankAccounts
-    bankAccounts: [BankAccount]
+    bankAccounts: [BankAccount],
+    bankAccountsByType(accountType:String):[BankAccount],
+    bankAccountById(id:String): BankAccount # return a BankAccount Obj
 }
 
 type BankAccount {
     id: String,
     createdAt: String,
     balance: Float,
-    currency: String,
-    type: String
+    currencyCode: String,
+    accountType: String
 }

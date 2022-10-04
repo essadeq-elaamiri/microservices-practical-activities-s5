@@ -914,3 +914,65 @@ public class BankAccountGraphQLController {
 }
 ```
 
+To be functional, we should add this to the `propertie` file
+Enable the graphql interface
+
+```properties
+spring.graphql.graphiql.enabled=true
+```
+
+In the browser enter : `http://localhost:8081/graphiql?path=/graphql` to access the interface
+
+lets test some queries
+// Retrieve all the bankAccounts selecting their ids and balances
+```graphql
+query{
+  bankAccounts{
+    id,
+    balance
+  }
+}
+```
+
+All GraphQL requests are POST type (the body).
+There are 2 types of GraphQL requests (Queries): 
+
+1. **Query** : Consultation
+2. **Mutation**: Modification(Deleting, inserting, ...)
+
+GraphQL gives us the possibility to get what we exactly want (Projections): **Flexibility** 
+
+**NOTE:**
+
+<fieldset>
+The schema object must be the same as the Entity in terms of fields names ...
+To make the correspondence.
+
+````graphql
+type BankAccount {
+    id: String,
+    createdAt: String,
+    balance: Float,
+    currencyCode: String,
+    accountType: String
+}
+````
+
+````java
+ @Id
+    private String id;
+    @DateTimeFormat(pattern = "YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
+    // private double balance;
+
+    private Double balance; // to avoid error on update
+    @Enumerated(EnumType.STRING)
+    private CurrencyCode currencyCode;
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+````
+</fieldset>
+
+
+
