@@ -9,7 +9,9 @@ type Query {
 type Mutation {
     # ERROR: createBankAccount(bankAccount: BankAccount): BankAccount
     # We must create INPUT Object
-    createBankAccount(bankAccount: BankAccountRequestDTO ): BankAccount
+    createBankAccount(bankAccount: BankAccountRequestDTO ): BankAccount, ##
+    updateBankAccount(accountId: String, bankAccount: BankAccountRequestDTO): BankAccount,
+    deleteBankAccount(accountId: String): String
 }
 
 type BankAccount {

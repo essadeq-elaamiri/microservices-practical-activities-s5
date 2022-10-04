@@ -63,6 +63,12 @@ public class BankAccountGraphQLController {
         return bankAccountService.updateAccount(accountId, bankAccount);
     }
 
+    @MutationMapping
+    public String  deleteBankAccount(@Argument String accountId){
+        bankAccountRepository.deleteById(accountId);
+        return accountId;
+    }
+
     /// REcord (Class alias, Java will generate the rest of it )
  record BankAccountDTOInput(Float balance, String accountType, String currencyCode){}
 }
