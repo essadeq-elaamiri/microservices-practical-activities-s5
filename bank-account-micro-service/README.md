@@ -1327,4 +1327,6 @@ mutation($id: String){
 
 </details>
 
+// Adding some extra entities and get thing more complicated (Relations)
+
 
