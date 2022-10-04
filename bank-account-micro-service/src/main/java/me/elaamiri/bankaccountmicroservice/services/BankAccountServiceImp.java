@@ -1,6 +1,5 @@
 package me.elaamiri.bankaccountmicroservice.services;
 
-import me.elaamiri.bankaccountmicroservice.dto.BankAccountDTO;
 import me.elaamiri.bankaccountmicroservice.dto.BankAccountRequestDTO;
 import me.elaamiri.bankaccountmicroservice.dto.BankAccountResponseDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
@@ -62,6 +61,17 @@ public class BankAccountServiceImp implements BankAccountService {
                 .build();
 
          */
+        return bankAccountMapper.fromBankAccount(saved);
+    }
+
+    @Override
+    public BankAccountResponseDTO updateAccount(String accountId, BankAccountRequestDTO bankAccount) {
+        BankAccount bankAccount1 = bankAccountRepository.findById(accountId).orElseThrow(
+                ()-> new RuntimeException(String.format("Account with ID: %s Not Found!", accountId))
+        );
+        BankAccount account = bankAccountMapper.fromBankAccountRequestDTO(bankAccount);
+        account.setId(accountId);
+        BankAccount saved = bankAccountRepository.save(account);
         return bankAccountMapper.fromBankAccount(saved);
     }
 

@@ -14,4 +14,7 @@ public interface BankAccountService {
 
     // using DTOs: that is one cause why we should use DTOs
     public BankAccountResponseDTO insertAccount(BankAccountRequestDTO bankAccountDTO);
+
+
+    BankAccountResponseDTO updateAccount(String accountId, BankAccountRequestDTO bankAccount);
 }
