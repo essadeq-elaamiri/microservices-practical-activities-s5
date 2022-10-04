@@ -871,5 +871,11 @@ Now we are going to create our GraphQL Based controller.
 </dependency>
 ```
 
+#### Creating schema 
+`ressources/graphql/schema.graphqls`
+This file will describe the service interface
+```json
 
+
+```
 

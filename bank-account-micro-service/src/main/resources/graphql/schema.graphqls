@@ -1,0 +1,13 @@
+type Query {
+    # that for requests (Consultation)
+    # a request that returns a list of BankAccounts
+    bankAccounts: [BankAccount]
+}
+
+type BankAccount {
+    id: String,
+    createdAt: String,
+    balance: Float,
+    currency: String,
+    type: String
+}
