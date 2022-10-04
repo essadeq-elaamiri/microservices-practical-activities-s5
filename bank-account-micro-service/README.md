@@ -833,3 +833,43 @@ Exception:
 <pre>
 ids for this class must be manually assigned before calling save(): me.elaamiri.bankaccountmicroservice.entities.BankAccount
 </pre>
+
+// Lets correct the problems
+<details>
+
+```diff
+- The Exception: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned before calling save(): me.elaamiri.bankaccountmicroservice.entities.BankAccount
+	at org.hibernate.id.Assigned.generate(Assigned.java:33) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:115) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:185) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:128) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:55) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:107) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:756) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:742) ~[hibernate-core-5.6.10.Final.jar:5.6.10.Final]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577) ~[na:na]
++ Was geberated beause of the Generated REST (data rest), when I am trying to use the POST to insert new Entity, it generate this exception because there is no manual effectation of the Entity ID?
++ So it throws this Exception. (ID is not an auto Generated one)
+
+```
+</details>
+
+----------------------------------
+
+## GraphQL
+The microservice can connect with the external world by a lot of ways (REST, SOAP, GraphQL, ...).
+
+Now we are going to create our GraphQL Based controller.
+
+#### Installing the dependency (With spring version > 2.7)
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-graphql</artifactId>
+</dependency>
+```
+
+
+

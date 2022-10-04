@@ -44,7 +44,14 @@ public class BankAccountServiceImp implements BankAccountService {
 
          */
         // Using mappers
-        BankAccount savedAccount = bankAccountRepository.save(bankAccountMapper.fromBankAccountRequestDTO(bankAccountDTO));
+
+        BankAccount account = bankAccountMapper.fromBankAccountRequestDTO(bankAccountDTO);
+        // giving IDs
+        account.setId(UUID.randomUUID().toString());
+        account.setCreatedAt(new Date());
+        System.out.println(account);
+
+        BankAccount saved = bankAccountRepository.save(account);
         /*
         return BankAccountResponseDTO.builder()
                 .id(savedAccount.getId())
@@ -55,7 +62,7 @@ public class BankAccountServiceImp implements BankAccountService {
                 .build();
 
          */
-        return bankAccountMapper.fromBankAccount(savedAccount);
+        return bankAccountMapper.fromBankAccount(saved);
     }
 
 }
