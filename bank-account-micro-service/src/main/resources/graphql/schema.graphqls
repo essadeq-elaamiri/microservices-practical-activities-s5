@@ -6,9 +6,21 @@ type Query {
     bankAccountById(id:String): BankAccount # return a BankAccount Obj
 }
 
+type Mutation {
+    # ERROR: createBankAccount(bankAccount: BankAccount): BankAccount
+    # We must create INPUT Object
+    createBankAccount(bankAccount: BankAccountInput): BankAccount
+}
+
 type BankAccount {
     id: String,
     createdAt: String,
+    balance: Float,
+    currencyCode: String,
+    accountType: String
+}
+
+input BankAccountInput { ## We have to have a class with the same name
     balance: Float,
     currencyCode: String,
     accountType: String

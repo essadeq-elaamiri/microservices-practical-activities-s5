@@ -1128,3 +1128,20 @@ RES:
 
 
 ### GraphQL Mutations
+
+Mutation mapping in the controller 
+
+**NOTE**: In Java we can create classes as Records  (Immutable)/
+
+<details>
+<fieldset>
+
+Link : https://vladmihalcea.com/java-records-guide/ 
+Java 14 introduces a new way of defining such data objects, as Records, that take the burden of defining the fields, getters, equals, hashCode, and toString method implementations.
+
+Link: https://blogs.oracle.com/javamagazine/post/records-come-to-java
+The goal of records is to extend the Java language syntax and create a way to say that a class is "the fields, just the fields, and nothing but the fields." By you making that statement about a class, the compiler can help by creating all the methods automatically and having all the fields participate in methods such as hashCode ().
+</fieldset>
+</details>
+
+

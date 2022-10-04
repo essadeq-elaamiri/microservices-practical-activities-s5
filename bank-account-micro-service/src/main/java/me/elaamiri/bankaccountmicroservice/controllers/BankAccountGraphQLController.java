@@ -5,6 +5,7 @@ import me.elaamiri.bankaccountmicroservice.enumerations.AccountType;
 import me.elaamiri.bankaccountmicroservice.repositories.BankAccountRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -36,4 +37,13 @@ public class BankAccountGraphQLController {
                 .orElseThrow(()->
                         new RuntimeException(String.format("Account with ID: %s Not Found !", id)));
     }
+
+    @MutationMapping
+    public BankAccount createBankAccount(@Argument BankAccount bankAccount){
+        System.out.println(bankAccount);
+        return bankAccountRepository.save(bankAccount);
+    }
+    /// REcord (Class alias, Java will generate the rest of it )
+ record bankAccountDTOInput(Float balance, String accountType, String currencyCode){}
 }
+
