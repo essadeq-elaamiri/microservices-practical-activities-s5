@@ -1137,11 +1137,120 @@ Mutation mapping in the controller
 <fieldset>
 
 Link : https://vladmihalcea.com/java-records-guide/ 
+
+
 Java 14 introduces a new way of defining such data objects, as Records, that take the burden of defining the fields, getters, equals, hashCode, and toString method implementations.
 
 Link: https://blogs.oracle.com/javamagazine/post/records-come-to-java
+
+
 The goal of records is to extend the Java language syntax and create a way to say that a class is "the fields, just the fields, and nothing but the fields." By you making that statement about a class, the compiler can help by creating all the methods automatically and having all the fields participate in methods such as hashCode ().
 </fieldset>
 </details>
 
+In the graphql 
+
+```graphql
+type Mutation {
+    # ERROR: createBankAccount(bankAccount: BankAccount): BankAccount
+    # We must create INPUT Object
+    createBankAccount(bankAccount: BankAccountRequestDTO ): BankAccount
+}
+
+
+input BankAccountRequestDTO { ## We have to have a class with the same name
+    balance: Float,
+    currencyCode: String,
+    accountType: String
+}
+```
+
+And in the controller
+
+```java
+@MutationMapping
+public BankAccount createBankAccount(@Argument BankAccountRequestDTO bankAccount){
+        System.out.println(bankAccount);
+        BankAccount toBeSaved = bankAccountMapper.fromBankAccountRequestDTO(bankAccount);
+        // Should use the service layer, but just to skip the process I do this
+        toBeSaved.setId(UUID.randomUUID().toString());
+        toBeSaved.setCreatedAt(new Date());
+        return bankAccountRepository.save(toBeSaved);    
+}
+```
+
+§§ TEST
+
+```graphql
+mutation{
+  createBankAccount(bankAccount:{
+    accountType: "SAVING_ACCOUNT",
+    balance: 15422.22,
+    currencyCode: "MAD"
+  }){
+    id,
+    accountType,
+    balance,
+    currencyCode
+  }
+}
+```
+$$ RES
+
+```json
+{
+  "data": {
+    "createBankAccount": {
+      "id": "c92d00fd-fe5b-48d6-a759-f5018f825616",
+      "accountType": "SAVING_ACCOUNT",
+      "balance": 15422.22,
+      "currencyCode": "MAD"
+    }
+  }
+}
+```
+
+As best practice, we will save our mutations and use them in the front-end.
+We have the possibility to use arguments on out mutations:
+ex.
+
+```graphql
+mutation($type: String, 
+				$balance: Float,
+				$currency: String){
+  createBankAccount(bankAccount:{
+    accountType: $type,
+    balance: $balance,
+    currencyCode: $currency
+  }){
+    id,
+    accountType,
+    balance,
+    currencyCode
+  }
+}
+
+```
+With variables as json
+
+```json
+{"type": "CURRENT_ACCOUNT",
+  "balance": 1475.33,
+  "currency": "MAD"}
+```
+
+RES :
+
+````json
+{
+  "data": {
+    "createBankAccount": {
+      "id": "071bd9be-876c-4891-b04f-31f3146e3845",
+      "accountType": "CURRENT_ACCOUNT",
+      "balance": 1475.33,
+      "currencyCode": "MAD"
+    }
+  }
+}
+````
 

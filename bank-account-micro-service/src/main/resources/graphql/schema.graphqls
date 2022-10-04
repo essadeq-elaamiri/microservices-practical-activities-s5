@@ -9,7 +9,7 @@ type Query {
 type Mutation {
     # ERROR: createBankAccount(bankAccount: BankAccount): BankAccount
     # We must create INPUT Object
-    createBankAccount(bankAccount: BankAccountInput): BankAccount
+    createBankAccount(bankAccount: BankAccountRequestDTO ): BankAccount
 }
 
 type BankAccount {
@@ -20,7 +20,7 @@ type BankAccount {
     accountType: String
 }
 
-input BankAccountInput { ## We have to have a class with the same name
+input BankAccountRequestDTO { ## We have to have a class with the same name
     balance: Float,
     currencyCode: String,
     accountType: String

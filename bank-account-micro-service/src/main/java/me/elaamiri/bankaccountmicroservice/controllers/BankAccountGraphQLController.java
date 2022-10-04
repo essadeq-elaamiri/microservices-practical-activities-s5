@@ -1,7 +1,10 @@
 package me.elaamiri.bankaccountmicroservice.controllers;
 
+import lombok.AllArgsConstructor;
+import me.elaamiri.bankaccountmicroservice.dto.BankAccountRequestDTO;
 import me.elaamiri.bankaccountmicroservice.entities.BankAccount;
 import me.elaamiri.bankaccountmicroservice.enumerations.AccountType;
+import me.elaamiri.bankaccountmicroservice.mappers.BankAccountMapper;
 import me.elaamiri.bankaccountmicroservice.repositories.BankAccountRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -9,15 +12,16 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 public class BankAccountGraphQLController {
     private BankAccountRepository bankAccountRepository;
+    private BankAccountMapper bankAccountMapper;
 
-    public BankAccountGraphQLController(BankAccountRepository bankAccountRepository) {
-        this.bankAccountRepository = bankAccountRepository;
-    }
 
     // Using the same names as in the GraphQL Schema
     @QueryMapping // mapping the function to the graphql query
@@ -39,11 +43,15 @@ public class BankAccountGraphQLController {
     }
 
     @MutationMapping
-    public BankAccount createBankAccount(@Argument BankAccount bankAccount){
+    public BankAccount createBankAccount(@Argument BankAccountRequestDTO bankAccount){
         System.out.println(bankAccount);
-        return bankAccountRepository.save(bankAccount);
+        BankAccount toBeSaved = bankAccountMapper.fromBankAccountRequestDTO(bankAccount);
+        // Should use the service layer, but just to skip the process I do this
+        toBeSaved.setId(UUID.randomUUID().toString());
+        toBeSaved.setCreatedAt(new Date());
+        return bankAccountRepository.save(toBeSaved);
     }
     /// REcord (Class alias, Java will generate the rest of it )
- record bankAccountDTOInput(Float balance, String accountType, String currencyCode){}
+ record BankAccountDTOInput(Float balance, String accountType, String currencyCode){}
 }
 
