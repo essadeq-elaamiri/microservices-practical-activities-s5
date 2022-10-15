@@ -4,7 +4,8 @@
 TAF 
 
 ![taf](imgs/taf.PNG)
-<fieldset id="content">
+
+<section id="content">
 
 - [Part 1: practical app](#microservices-practical-app)
     - [Creating customer-service microservice](#creating-customer-service-microservice)
@@ -20,7 +21,7 @@ TAF
     - [Spring Cloud Gateway vs Zuul](#spring-cloud-gateway-vs-zuul)
     - [Multi Threads avec IO Bloquantes Vs Single Thread avec IO Non Bloquantes](#multi-threads-avec-io-bloquantes-vs-single-thread-avec-io-non-bloquantes)
 
-</fieldset>
+</section>
 
 ## Microservices practical app
 
@@ -590,7 +591,7 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 > But What I just did  ?? let's discover in the technical info (Théorique)
 
 ------------------------------------------------------------
-![:top:](#content)
+[:top:](#content)
 
 ## Technical info
 
