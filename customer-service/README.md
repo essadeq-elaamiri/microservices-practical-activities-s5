@@ -467,7 +467,7 @@ public class DiscoveryServiceApplication {
 ![server](imgs/eureka_server.PNG)
 ![server](imgs/dis.PNG)
 
-- Permettre à Customer-service et Invotory-service de s’enregistrer chez Eureka server
+- Permettre à Customer-service et Inventory-service de s’enregistrer chez Eureka server
 - Allow Customer-service and Invotory-service to register with Eureka server
 
 In customer-service properties :
@@ -525,6 +525,14 @@ public class GatewayServiceApplication {
 
 ````
 
+Maintenant on a pas besoin des adresses IP des service, c'est dynamiquement, lorsque le microservice demarre il va s'enregistrer dans le discovery service, ce dernier enregistre son nom et son adresse.
+
+
+> "lb://COSTUMER-SERVICE" : lb pour load balancer 
+> Demander au load balancer de envoyer la requete vers un microservise qui s'appele `COSTUMER-SERVICE`
+
+Mais ça reste toujour static, car on doit avoir les noms aussi des microservices.
+
 ![prods](imgs/prods.PNG)
 
 #### Dynamic routes configuration with Discovery Service
@@ -542,11 +550,7 @@ Adding DiscoveryClientRouteDefinitionLocator
 
 @SpringBootApplication
 public class GatewayServiceApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(GatewayServiceApplication.class, args);
-	}
-
+    // main ....
 //	@Bean
 //	RouteLocator gatewayRoutes(RouteLocatorBuilder builder){
 //		return builder.routes()
@@ -564,7 +568,7 @@ public class GatewayServiceApplication {
 //	}
 
 
-	@Bean
+	@Bean // completely dynamic
 	DiscoveryClientRouteDefinitionLocator dynamicRoutes(ReactiveDiscoveryClient reactiveDiscoveryClient,
 														DiscoveryLocatorProperties discoveryLocatorProperties){
 		return new DiscoveryClientRouteDefinitionLocator(reactiveDiscoveryClient, discoveryLocatorProperties);
@@ -572,6 +576,8 @@ public class GatewayServiceApplication {
 }
 
 ```
+
+> B7alla kan9oul l Gateway rak ghadi tl9a smyya dyal l microservice f partie 1 du (URL)
 
 Visiting : `http://localhost:8888/INVENTORY-SERVICE/products/1`
 ```json
@@ -605,6 +611,12 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
   }
 }
 ```
+
+on peut utiliser les deux au même temps :
+- les routes statiques pour les services externes
+- les routes dynamiques pour les services internes
+
+
 
 > But What I just did  ?? let's discover in the technical info (Théorique)
 
