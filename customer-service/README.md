@@ -115,8 +115,33 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 In the application we test
 
 ```java
+@SpringBootApplication
+public class CustomerServiceApplication {
+    //..... main 
+    @Bean
+    CommandLineRunner start(CustomerRepository customerRepository){
+        return  args -> {
+            customerRepository.save(new Customer(null, "Essadeq", "essade@gmail.com"));
+            customerRepository.save(new Customer(null, "Mariam", "mariam@gmail.com"));
+            customerRepository.save(new Customer(null, "Laila", "la88745@gmail.com"));
+            customerRepository.save(new Customer(null, "Consal", "sal87@gmail.com"));
+            customerRepository.save(new Customer(null, "Zadeq", "pakista@gmail.com"));
 
+            customerRepository.findAll().forEach(System.out::println);
+        };
+    }
+}
 ```
+
+Result :
+
+````textmate
+Customer(id=1, name=Essadeq, email=essade@gmail.com)
+Customer(id=2, name=Mariam, email=mariam@gmail.com)
+Customer(id=3, name=Laila, email=la88745@gmail.com)
+Customer(id=4, name=Consal, email=sal87@gmail.com)
+Customer(id=5, name=Zadeq, email=pakista@gmail.com)
+````
 
 ------------------------------------------------------------
 
