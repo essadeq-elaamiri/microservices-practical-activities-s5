@@ -1,8 +1,8 @@
 # Microservices
 
 
-[Part 1: practical app](#microservices-practical-app)
-[Part 2: technical info](#technical-info)
+- [Part 1: practical app](#microservices-practical-app)
+- [Part 2: technical info](#technical-info)
 
 ## Microservices practical app
 
@@ -158,6 +158,23 @@ numbers.forEach(o -> p.println(o));
 which will make a difference if someone invokes System.setOut(…); in-between.
 link : https://stackoverflow.com/questions/28023364/what-is-the-equivalent-lambda-expression-for-system-outprintln 
 </details>
+
+Visiting : `http://localhost:8081/customers/1`
+
+```json
+{
+  "name" : "Essadeq",
+  "email" : "essade@gmail.com",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8081/customers/1"
+    },
+    "customer" : {
+      "href" : "http://localhost:8081/customers/1"
+    }
+  }
+}
+```
 
 
 

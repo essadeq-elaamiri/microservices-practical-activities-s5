@@ -2,6 +2,19 @@
 ### Micro-services Spring 
 #### Initializing the project 
 
+- [REST](#entities)
+    - [configring-our-app](#configring-our-app)
+    - [creating-dtos](#creating-dtos)
+    - [adding-swagger-documentation-to-our-api](#adding-swagger-documentation-to-our-api)
+    - [projections-in-spring-data-rest](#projections-in-spring-data-rest)
+    - [mappers](#mappers)
+    - [spring-data-rest](#spring-data-rest)
+- [Graphql](#graphql)
+    - [creating-schema](#creating-schema)
+    - [graphql-mutations](#graphql-mutations)
+    - [graphql-mutations](#graphql-mutations)
+
+
 ![initilizr](imgs/init.png)
 
 
