@@ -213,18 +213,47 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 ```
 Testing :
 ```java
+@SpringBootApplication
+public class InventoryServiceApplication {
+    // main ...
+	@Bean
+	CommandLineRunner start(ProductRepository productRepository){
+		return args -> {
+			productRepository.save(new Product(null, "Lenovo w541", 7400.99));
+			productRepository.save(new Product(null, "HP 478S", 10000.99));
+			productRepository.save(new Product(null, "MacPro 2023", 17400.99));
+			productRepository.save(new Product(null, "KitMan hj", 700.99));
 
+			productRepository.findAll().forEach(System.out::println);
+		};
+	}
+}
 ```
 
 Res:
 ````textmate
-
+Product(id=1, name=Lenovo w541, price=7400.99)
+Product(id=2, name=HP 478S, price=10000.99)
+Product(id=3, name=MacPro 2023, price=17400.99)
+Product(id=4, name=KitMan hj, price=700.99)
 ````
-Visiting: ``
+Visiting: `http://localhost:8082/products/1`
 
 ```json
-
+{
+  "name" : "Lenovo w541",
+  "price" : 7400.99,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8082/products/1"
+    },
+    "product" : {
+      "href" : "http://localhost:8082/products/1"
+    }
+  }
+}
 ```
+--> Tous va bien
 
 ------------------------------------------------------------
 
