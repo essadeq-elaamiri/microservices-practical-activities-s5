@@ -315,6 +315,66 @@ server:
 
 ![gateway](imgs/gateway.PNG)
 
+Testing:
+
+```diff
+- org.springframework.beans.factory.BeanDefinitionStoreException: Failed to process import candidates for configuration class [me.elaamiri.gatewayservice.GatewayServiceApplication]; nested exception is java.io.FileNotFoundException: class path resource [org/springframework/boot/autoconfigure/web/ServerPropertiesAutoConfiguration.class] cannot be opened because it does not exist
+```
+
+Solution:
+
+use 
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+    <version>2.2.10.RELEASE</version>
+</dependency>
+```
+instead of :
+````xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-hystrix</artifactId>
+    <version>1.4.7.RELEASE</version>
+</dependency>
+````
+
+Visiting: `http://localhost:8888/products/1`
+````json
+{
+  "name" : "Lenovo w541",
+  "price" : 7400.99,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8082/products/1"
+    },
+    "product" : {
+      "href" : "http://localhost:8082/products/1"
+    }
+  }
+}
+````
+
+Visiting : `http://localhost:8888/customers/1`
+```json
+{
+  "name" : "Essadeq",
+  "email" : "essade@gmail.com",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8081/customers/1"
+    },
+    "customer" : {
+      "href" : "http://localhost:8081/customers/1"
+    }
+  }
+}
+```
+
+--> OK 200
+
+
 
 
 ------------------------------------------------------------
