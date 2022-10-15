@@ -415,6 +415,9 @@ public class GatewayServiceApplication {
 #### Dynamic routing using Eureka Discovery Service
 [Adding Registry Eureka service]
 
+[:top:](#content)
+
+
 Project file link: https://github.com/essadeq-elaamiri/microservices-practical-activities-s5/tree/main/discovery-service
 
 - Creating discovery-service (Eureka Discovery Service)
@@ -511,6 +514,7 @@ public class GatewayServiceApplication {
 ![prods](imgs/prods.PNG)
 
 #### Dynamic routes configuration with Discovery Service
+[:top:](#content)
 
 In the gateway properties :
 ````properties
@@ -639,3 +643,28 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 
 ### Multi Threads avec IO Bloquantes Vs Single Thread avec IO Non Bloquantes
 ![t3](imgs/t3.PNG)
+
+
+**Multithread model**
+(PHP, dotNet, Java (-v7))
+- Used in `Spring MVC + Tomcat`
+- On peut pas utiliser une infinité de threads (200 max dans SpringBoot par defaut).
+- Un nombre important de requetes (+ 200 dans ce cas) va nous ramener à la monté en charge (problème de performance).
+- Donc le modèle multithread n'est scalable verticalement: uncappable d'exploiter tous les ressources (Car on est limité par le nombre des threads).
+- La performance du serveur est dépand au consomateur (client), s'il a par exemples des problèmes au niveau de connexion (faible H+ ..), il va mobiliser les thread de sa requet pendant une longe durée.
+- La latence du réseau impact la performance de ce modèle.
+- Il marche bien si les requetes vont etre traitées dans une durée courte. 
+
+**Single thread model**
+(Nodejs, Java (+v7, with `java.nio`))
+- Used in `Reactive Spring or Spring Web Flux + Netty`
+- Uses an **event loop** : boucle infinie, utilise une single thread pour traiter toutes les requets.
+- Utilise la programmation asynchrone.
+- Le premier serveur qui a impléenté ce modèle là est: `Netty`.
+- **Problèmes**: si par example le serveur a 8 ceurs (processeur), le modèle exploite un seul.
+- **Solution**: Utilisation des `Worker threads`, le `IO Selector thread` les utilisents pour traiter la requete.
+- Pour utiliser ce modèle il faut assurer que toutes les entrées sorties sont non bloquante (même pour les drivers des bases de données): `[Utiliser Reactive JDBC au lien de JDBC]`
+- C'est modèle qui scalable verticalement (On peut ajouter de la mémoire, CPU ... car le modèle exploite tous).
+ 
+
+[:top:](#content)
