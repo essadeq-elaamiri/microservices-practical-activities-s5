@@ -102,6 +102,22 @@ public class Customer {
 
 ````
 
+Repository + rest sources
+
+````java
+
+@RepositoryRestResource
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+}
+
+````
+
+In the application we test
+
+```java
+
+```
+
 ------------------------------------------------------------
 
 ## Technical info
