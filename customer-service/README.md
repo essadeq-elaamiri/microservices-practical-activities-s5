@@ -1,4 +1,10 @@
-## Customer service 
+# Microservices
+
+
+[Part 1: practical app](#microservices-practical-app)
+[Part 2: technical info](#technical-info)
+
+## Microservices practical app
 
 ### Creating customer-service microservice
 Installing extensions :
@@ -42,6 +48,10 @@ Installing extensions :
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
 	</dependencies>
 
 ```
@@ -54,5 +64,46 @@ Installing extensions :
 - **Spring Boot DevTools** : Provides fast application restarts,  LiveReload, and configurations for enhanced development experience.
 - **Eureka Discovery Client** : a REST based service for locating services for the purpose of load balancing and failover of middletier servers.
 - **Spring Boot Actuator** : Supports built in (or custom) endpoints that  let you monitor and manage your application - such as application  health, metrics, sessions, etc.
+- **Spring validation**: validating entity fields.
 
+Properties file :
+````properties
+spring.cloud.discovery.enabled= false
+server.port=8081
+spring.application.name=customer-service
 
+````
+About Spring boot validation : https://reflectoring.io/bean-validation-with-spring-boot/
+
+Some of the most common validation annotations are:
+
+- @NotNull: to say that a field must not be null.
+- @NotEmpty: to say that a list field must not empty.
+- @NotBlank: to say that a string field must not be the empty string (i.e. it must have at least one character).
+- @Min and @Max: to say that a numerical field is only valid when it’s value is above or below a certain value.
+- @Pattern: to say that a string field is only valid when it matches a certain regular expression.
+- @Email: to say that a string field must be a valid email address.
+
+Customer entity:
+
+````java
+
+@Entity @Data @AllArgsConstructor @NoArgsConstructor @ToString @Builder
+public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
+    private String name;
+    @Email
+    private String email;
+}
+
+````
+
+------------------------------------------------------------
+
+## Technical info
+
+How microservices work ?
