@@ -21,6 +21,7 @@ TAF
     - [Multi Threads avec IO Bloquantes Vs Single Thread avec IO Non Bloquantes](#multi-threads-avec-io-bloquantes-vs-single-thread-avec-io-non-bloquantes)
 
 </fieldset>
+
 ## Microservices practical app
 
 ### Creating customer-service microservice
