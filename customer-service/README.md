@@ -702,4 +702,7 @@ on peut utiliser les deux au même temps :
 - `Spring boot Actuator`: pour le monitoring et la consultation de la santé de notre application (REST endpoints).
 - `hystrix` : c'est une implémentation du pattern `Circuit breaker` 
 
+
+Other content start at : 1:10:00 | [video](https://www.youtube.com/watch?v=twJDPMNbAFU)
+
 [:top:](#content)
