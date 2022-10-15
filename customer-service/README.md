@@ -1,9 +1,10 @@
 # Microservices
 
 
-TAF
+TAF 
 
 ![taf](imgs/taf.PNG)
+<fieldset id="content">
 
 - [Part 1: practical app](#microservices-practical-app)
     - [Creating customer-service microservice](#creating-customer-service-microservice)
@@ -15,8 +16,11 @@ TAF
         - [Static routes configuration using Discovery Service](#static-routes-configuration-using-discovery-service)
         - [Dynamic routes configuration with Discovery Service](#dynamic-routes-configuration-with-discovery-service)
 - [Part 2: technical info](#technical-info)
+    - [How microservices work ?](#how-microservices-work-)
+    - [Spring Cloud Gateway vs Zuul](#spring-cloud-gateway-vs-zuul)
+    - [Multi Threads avec IO Bloquantes Vs Single Thread avec IO Non Bloquantes](#multi-threads-avec-io-bloquantes-vs-single-thread-avec-io-non-bloquantes)
 
-
+</fieldset>
 ## Microservices practical app
 
 ### Creating customer-service microservice
@@ -585,10 +589,11 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 > But What I just did  ?? let's discover in the technical info (Théorique)
 
 ------------------------------------------------------------
+![:top:](#content)
 
 ## Technical info
 
-How microservices work ?
+### How microservices work ?
 
 ![t1](imgs/t1.PNG)
 
@@ -608,3 +613,27 @@ How microservices work ?
 
 </fieldset>
 
+![t2](imgs/t2.PNG)
+
+- Note: in the 2 nd request, the `registration / discovery service`, returns a list of adresses, so the `gateway` here will use the `load balancer` to choose the intance to be reached.
+
+
+### Spring Cloud Gateway vs Zuul
+
+- Gateway API est un reverse proxy amélioré avec des fonctionnalités plus avancées, y compris l'orchestration et la sécurité et le monitoring
+- Quelques implémentations de API Gateway :
+  - **Netflix Zuul Proxy**, 
+  - **Amazon Gateway API**, 
+  - **Spring Cloud Gateway**
+  
+- Il y a deux modèles de gateway qu'on peut utiliser  (Implémentation de Gateway API ):
+    - `Zuul`: basé sur les entrés sorties bloquantes. [par Netflix] (Model multithread avec des entrés sorties bloquantes)
+      - utilise un thread pour chaque requete entrante.
+      - Si aucun thread n'est disponible pour traiter la requête entrante, celle-ci doit attendre dans la file d'attente
+    - `Spring Cloud Gateway`:  est un proxy utilisant une API non bloquante. (Model singlethread avec des entrés sorties non bloquantes)
+      - Un thread est toujours disponible pour traiter requête entrante.
+      -  Ces requêtes sont ensuite traitées de manière asynchrone en arrière-plan et une fois complétées, la réponse est renvoyée.
+      -  Ainsi, aucune requête entrante n'est jamais bloquée lors de l'utilisation de Spring Cloud Gateway sauf si les ressources CPU et mémoires sont saturées.
+
+### Multi Threads avec IO Bloquantes Vs Single Thread avec IO Non Bloquantes
+![t3](imgs/t3.PNG)
