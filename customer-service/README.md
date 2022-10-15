@@ -404,6 +404,8 @@ public class GatewayServiceApplication {
 #### Dynamic routing using Eureka Discovery Service
 [Adding Registry Eureka service]
 
+Project file link: https://github.com/essadeq-elaamiri/microservices-practical-activities-s5/tree/main/discovery-service
+
 - Creating discovery-service (Eureka Discovery Service)
 - Installing the dependency:
 
@@ -412,17 +414,63 @@ public class GatewayServiceApplication {
 - Configuration it as a discovery server
 
 `````properties
-
+server.port=8761
+# do not register server as a client
+eureka.client.fetch-registry=false
+# Does not register itself in the service registry
+eureka.client.register-with-eureka=false
 `````
 
 - EnableEurekaServer on the applications
 
 ````java
+		
+@SpringBootApplication
+@EnableEurekaServer
+public class DiscoveryServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DiscoveryServiceApplication.class, args);
+	}
+
+}
+````
+
+![server](imgs/eureka_server.PNG)
+![server](imgs/dis.PNG)
+
+- Permettre à Customer-service et Invotory-service de s’enregistrer chez Eureka server
+- Allow Customer-service and Invotory-service to register with Eureka server
+
+In customer-service properties :
+
+````properties
+spring.cloud.discovery.enabled= true
+server.port=8081
+spring.application.name=customer-service
+management.endpoints.web.exposure.include=*
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
 
 ````
 
+In inventory-service properties :
+
+````properties
+spring.cloud.discovery.enabled= true
+server.port=8082
+spring.application.name=inventory-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+````
+
+![lok](imgs/lok.PNG)
+
 #### Static routes configuration using Discovery Service
 
+In the RouterLocator (Gateway-service), we so a static routes config with discovery Service
+
+````java
+
+````
 
 
 ------------------------------------------------------------
