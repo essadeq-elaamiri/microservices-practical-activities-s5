@@ -5,7 +5,11 @@
     - [Creating customer-service microservice](#creating-customer-service-microservice)
     - [Creating inventory-service microservice](#creating-inventory-service-microservice)
     - [Creating gateway-service microservice](#creating-gateway-service-microservice)
+        - [Static routing using Java Config Class (Static routes configuration)](#static-routing-using-java-config-class)
+        - [Dynamic routing using Eureka Discovery Service (Adding Registry Eureka service)](#dynamic-routing-using-eureka-discovery-service)
+        - [Static routes configuration using Discovery Service](#static-routes-configuration-using-discovery-service)
 - [Part 2: technical info](#technical-info)
+
 
 ## Microservices practical app
 
@@ -374,6 +378,13 @@ Visiting : `http://localhost:8888/customers/1`
 
 --> OK 200
 
+#### Static routing using Java Config Class 
+Static routes configuration
+
+#### Dynamic routing using Eureka Discovery Service
+[Adding Registry Eureka service]
+
+#### Static routes configuration using Discovery Service
 
 
 
