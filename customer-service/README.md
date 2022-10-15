@@ -179,7 +179,8 @@ Visiting : `http://localhost:8081/customers/1`
 ```
 
 ### Creating inventory-service microservice
-Service project file link : 
+Service project file link : https://github.com/essadeq-elaamiri/microservices-practical-activities-s5/tree/main/inventory-service
+
 - Creating other spring project
 - Adding the same dependencies as the first microservice (Customer-service)
 
