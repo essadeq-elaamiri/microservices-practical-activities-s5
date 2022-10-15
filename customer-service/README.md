@@ -4,6 +4,7 @@
 - [Part 1: practical app](#microservices-practical-app)
     - [Creating customer-service microservice](#creating-customer-service-microservice)
     - [Creating inventory-service microservice](#creating-inventory-service-microservice)
+    - [Creating gateway-service microservice](#creating-gateway-service-microservice)
 - [Part 2: technical info](#technical-info)
 
 ## Microservices practical app
@@ -255,6 +256,21 @@ Visiting: `http://localhost:8082/products/1`
 }
 ```
 --> Tous va bien
+
+### Creating gateway-service microservice
+Service project file link : https://github.com/essadeq-elaamiri/microservices-practical-activities-s5/tree/main/gateway-service
+
+- Creating other spring project
+- Adding the  dependencies
+
+```xml
+
+```
+
+- **Gateway** : Provides a simple, yet effective way  to route to APIs and provide cross cutting concerns to them such as security, monitoring/metrics, and resiliency.
+- **Spring Boot Actuator** : Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc.
+- **Hystrix** : Circuit breaker with Spring Cloud Netflix Hystrix.
+- **Eureka Discovery Client** : a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers
 
 ------------------------------------------------------------
 
