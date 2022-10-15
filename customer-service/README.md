@@ -402,7 +402,8 @@ Visiting : `http://localhost:8888/customers/1`
 --> OK 200
 
 #### Static routing using Java Config Class 
-Static routes configuration
+Static routes configuration 
+utilisation d'un `bean` de configuration des routes
 
 ````java
 @SpringBootApplication
@@ -411,14 +412,17 @@ public class GatewayServiceApplication {
 	@Bean
 	RouteLocator gatewayRoutes(RouteLocatorBuilder builder){
 		return builder.routes()
-				.route(r -> r.path("/customers/**").uri("http://localhost:8081"))
-				.route(r -> r.path("/products/**").uri("http://localhost:8082"))
+				.route(id, r -> r.path("/customers/**").uri("http://localhost:8081"))
+				.route(id, r -> r.path("/products/**").uri("http://localhost:8082"))
 				.build();
 	}
 
 }
 ````
 // Just the same results 
+
+> On utilise la configuration static lorsque on sait les adresses des micro-services (avec un seul instance chaq'un) ...
+> Dans un autre cas ou on ne sait pas, on va utiliser routage dynamique avec discovery service
 
 #### Dynamic routing using Eureka Discovery Service
 [Adding Registry Eureka service]
@@ -439,9 +443,9 @@ Project file link: https://github.com/essadeq-elaamiri/microservices-practical-a
 
 `````properties
 server.port=8761
-# do not register server as a client
+# do not register server as a client (it is the server now)
 eureka.client.fetch-registry=false
-# Does not register itself in the service registry
+# Does not register itself in the service registry (discovery server)
 eureka.client.register-with-eureka=false
 `````
 
@@ -682,6 +686,7 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 
 
 - `Eureka Discovery client ` : permet de connecter le microservice avec de discovery service pour s'enregister.
+-  `Eureka Discovery Server `: installée pour le discovery service
 - `Spring boot Actuator`: pour le monitoring et la consultation de la santé de notre application (REST endpoints).
 - `hystrix` : c'est une implémentation du pattern `Circuit breaker` 
 
