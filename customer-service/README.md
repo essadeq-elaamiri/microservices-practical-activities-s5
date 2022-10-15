@@ -2,6 +2,8 @@
 
 
 - [Part 1: practical app](#microservices-practical-app)
+    - [Creating customer-service microservice](#creating-customer-service-microservice)
+    - [Creating inventory-service microservice](#creating-inventory-service-microservice)
 - [Part 2: technical info](#technical-info)
 
 ## Microservices practical app
@@ -176,6 +178,10 @@ Visiting : `http://localhost:8081/customers/1`
 }
 ```
 
+### Creating inventory-service microservice
+Service project file link : 
+- Creating other spring project
+- Adding the same dependencies as the first microservice (Customer-service)
 
 
 ------------------------------------------------------------
