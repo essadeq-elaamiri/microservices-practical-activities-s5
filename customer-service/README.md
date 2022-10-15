@@ -183,6 +183,48 @@ Service project file link :
 - Creating other spring project
 - Adding the same dependencies as the first microservice (Customer-service)
 
+Config
+
+```properties
+spring.application.name=inventory-service
+spring.cloud.discovery.enabled=false
+server.port=8082
+```
+
+Entity :
+````java
+@Entity @Data @AllArgsConstructor @NoArgsConstructor @ToString @Builder
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private double price;
+}
+
+````
+
+Repo :
+
+```java
+@RepositoryRestResource
+public interface ProductRepository extends JpaRepository<Product, Long> {
+}
+```
+Testing :
+```java
+
+```
+
+Res:
+````textmate
+
+````
+Visiting: ``
+
+```json
+
+```
 
 ------------------------------------------------------------
 
