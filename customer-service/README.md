@@ -5,6 +5,7 @@
     - [Creating customer-service microservice](#creating-customer-service-microservice)
     - [Creating inventory-service microservice](#creating-inventory-service-microservice)
     - [Creating gateway-service microservice](#creating-gateway-service-microservice)
+        - [Static routes configuration application.yml](#static-routes-configuration-applicationyml)
         - [Static routing using Java Config Class (Static routes configuration)](#static-routing-using-java-config-class)
         - [Dynamic routing using Eureka Discovery Service (Adding Registry Eureka service)](#dynamic-routing-using-eureka-discovery-service)
         - [Static routes configuration using Discovery Service](#static-routes-configuration-using-discovery-service)
@@ -295,6 +296,9 @@ Service project file link : https://github.com/essadeq-elaamiri/microservices-pr
 - **Hystrix** : Circuit breaker with Spring Cloud Netflix Hystrix.
 - **Eureka Discovery Client** : a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers
 
+#### Static routes configuration application.yml
+
+
 Configuration using `application.yml` instead of `application.properties`
 
 ```yml
@@ -381,8 +385,41 @@ Visiting : `http://localhost:8888/customers/1`
 #### Static routing using Java Config Class 
 Static routes configuration
 
+````java
+@SpringBootApplication
+public class GatewayServiceApplication {
+    // .... main 
+	@Bean
+	RouteLocator gatewayRoutes(RouteLocatorBuilder builder){
+		return builder.routes()
+				.route(r -> r.path("/customers/**").uri("http://localhost:8081"))
+				.route(r -> r.path("/products/**").uri("http://localhost:8082"))
+				.build();
+	}
+
+}
+````
+// Just the same results 
+
 #### Dynamic routing using Eureka Discovery Service
 [Adding Registry Eureka service]
+
+- Creating discovery-service (Eureka Discovery Service)
+- Installing the dependency:
+
+  **Eureka Server** : spring-cloud-netflix Eureka Server
+
+- Configuration it as a discovery server
+
+`````properties
+
+`````
+
+- EnableEurekaServer on the applications
+
+````java
+
+````
 
 #### Static routes configuration using Discovery Service
 

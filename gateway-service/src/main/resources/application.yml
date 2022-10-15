@@ -1,15 +1,15 @@
 spring:
   cloud:
     gateway:
-      routes:
-        - id : route1
-          uri: http://localhost:8081/
-          predicates:
-            - Path= /customers/**
-        - id: route2
-          uri: http://localhost:8082/
-          predicates:
-            - Path= /products/**
+#      routes:
+#        - id : route1
+#          uri: http://localhost:8081/
+#          predicates:
+#            - Path= /customers/**
+#        - id: route2
+#          uri: http://localhost:8082/
+#          predicates:
+#            - Path= /products/**
       discovery:
         locator:
           enabled: false
