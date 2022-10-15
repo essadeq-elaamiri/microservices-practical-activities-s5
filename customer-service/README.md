@@ -143,6 +143,24 @@ Customer(id=4, name=Consal, email=sal87@gmail.com)
 Customer(id=5, name=Zadeq, email=pakista@gmail.com)
 ````
 
+Everything is fine, but why `System.out::println` :
+<details>
+The method reference System.out::println will evaluate System.out first, then create the equivalent of a lambda expression which captures the evaluated value. Usually, you would use
+o -> System.out.println(o) to achieve the same as the method reference, but this lambda expression will evaluate System.out each time the method will be called.
+
+So an exact equivalent would be:
+
+````java
+PrintStream p = Objects.requireNonNull(System.out);
+numbers.forEach(o -> p.println(o));
+````
+
+which will make a difference if someone invokes System.setOut(…); in-between.
+link : https://stackoverflow.com/questions/28023364/what-is-the-equivalent-lambda-expression-for-system-outprintln 
+</details>
+
+
+
 ------------------------------------------------------------
 
 ## Technical info
