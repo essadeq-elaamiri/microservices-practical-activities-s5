@@ -1,6 +1,10 @@
 # Microservices
 
 
+TAF
+
+![taf](imgs/taf.PNG)
+
 - [Part 1: practical app](#microservices-practical-app)
     - [Creating customer-service microservice](#creating-customer-service-microservice)
     - [Creating inventory-service microservice](#creating-inventory-service-microservice)
@@ -578,9 +582,12 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 }
 ```
 
+> But What I just did  ?? let's discover in the technical info (Théorique)
 
 ------------------------------------------------------------
 
 ## Technical info
 
 How microservices work ?
+
+
