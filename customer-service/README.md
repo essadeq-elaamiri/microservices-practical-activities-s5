@@ -545,6 +545,40 @@ public class GatewayServiceApplication {
 
 ```
 
+Visiting : `http://localhost:8888/INVENTORY-SERVICE/products/1`
+```json
+{
+  "name" : "Lenovo w541",
+  "price" : 7400.99,
+  "_links" : {
+    "self" : {
+      "href" : "http://DESKTOP-NH5SQQL:8082/products/1"
+    },
+    "product" : {
+      "href" : "http://DESKTOP-NH5SQQL:8082/products/1"
+    }
+  }
+}
+```
+
+Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
+
+```json
+{
+  "name" : "Essadeq",
+  "email" : "essade@gmail.com",
+  "_links" : {
+    "self" : {
+      "href" : "http://DESKTOP-NH5SQQL:8081/customers/1"
+    },
+    "customer" : {
+      "href" : "http://DESKTOP-NH5SQQL:8081/customers/1"
+    }
+  }
+}
+```
+
+
 ------------------------------------------------------------
 
 ## Technical info
