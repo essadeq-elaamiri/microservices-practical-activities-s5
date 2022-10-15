@@ -92,6 +92,9 @@ server.port=8081
 spring.application.name=customer-service
 
 ````
+
+`spring.cloud.discovery.enabled= false`: pour dire au service que c'est pas la penne de chercher un discovery service (حيت باقي ماكاينش ههه). 
+
 About Spring boot validation : https://reflectoring.io/bean-validation-with-spring-boot/
 
 Some of the most common validation annotations are:
@@ -161,6 +164,9 @@ Customer(id=3, name=Laila, email=la88745@gmail.com)
 Customer(id=4, name=Consal, email=sal87@gmail.com)
 Customer(id=5, name=Zadeq, email=pakista@gmail.com)
 ````
+
+Visiting : `localhost:8081/actuator` will give us some monitoring about our application.
+    - `localhost:8081/actuator/health` --> `{"status" : "UP" }`
 
 Everything is fine, but why `System.out::println` :
 <details>
@@ -273,6 +279,8 @@ Visiting: `http://localhost:8082/products/1`
 ```
 --> Tous va bien
 
+> Now I have 2 microservices, let's create the Gateway
+
 ### Creating gateway-service microservice
 Service project file link : https://github.com/essadeq-elaamiri/microservices-practical-activities-s5/tree/main/gateway-service
 
@@ -324,7 +332,7 @@ spring:
         - id: route2
           uri: http://localhost:8082/
           predicates:
-            - Path= /products/**
+            - Path= /products/** # if path starts with /products/** send request to http://localhost:8082/
       discovery:
         locator:
           enabled: false
@@ -414,6 +422,8 @@ public class GatewayServiceApplication {
 
 #### Dynamic routing using Eureka Discovery Service
 [Adding Registry Eureka service]
+
+Eureka is an implementation of discovery service by Netflix.
 
 [:top:](#content)
 
@@ -666,5 +676,13 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 - Pour utiliser ce modèle il faut assurer que toutes les entrées sorties sont non bloquante (même pour les drivers des bases de données): `[Utiliser Reactive JDBC au lien de JDBC]`
 - C'est modèle qui scalable verticalement (On peut ajouter de la mémoire, CPU ... car le modèle exploite tous).
  
+### Spring Cloud Gateway Routes
+
+![t4](imgs/t4.PNG)
+
+
+- `Eureka Discovery client ` : permet de connecter le microservice avec de discovery service pour s'enregister.
+- `Spring boot Actuator`: pour le monitoring et la consultation de la santé de notre application (REST endpoints).
+- `hystrix` : c'est une implémentation du pattern `Circuit breaker` 
 
 [:top:](#content)
