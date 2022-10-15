@@ -590,4 +590,21 @@ Visiting : `http://localhost:8888/CUSTOMER-SERVICE/customers/1`
 
 How microservices work ?
 
+![t1](imgs/t1.PNG)
+
+<fieldset>
+
+- `Microservice fonctionnel` : c'est une microservice lié au mitier. Il faut les intégrer dans une architecture microservice.pour cela il faut deployer des `microservices techniques `
+- `Microservices techniques`: 
+  - [`gateway-service `] : le point d'entré des requetes vers l'architecture (toute requetes externes sont à distanation de la `gateway` ).
+  - [`registration-service` ou `discovery-service`]: chaque micro-service qui démarre a besoin de publier son adresse dans ce service. dans dans le `disovery-service` on va trouver les nom et l'adresse de tous les microservices de l'architecture.
+    - [`configuration-service`]: pour une configuration globale au lieu de faire un fichier de config pour chaque micro-service.
+- Le `gateway` lorsque il reçoit une requete, il fait appel au `discovery-service` pour récupérer l'adresse. Après la request va etre dériger vers le microservice correspondant.
+- Le `gateway` utilise un `load balancer` ou bien un `équilibreur de charge` quand il y a plusieurs instances d'un micro-service.et donc chaque requets est envoyée vers une instance.
+- Donc parmit les avantages de cette architecture c'est la `scalabilité Horizontale` : c à d, lorsque on a un problème de performance, on démarre des nouvelles instances. qui vont partager la charge.
+- On peut écrire un seul fichier de configuration globale, qu'il va etre géré par le service thechnique `configurtion-service`.
+- Donc un micro-service quand il démarre, la première chose qu'il fait, c'est d'envoyer une requête vers le service de configuration pour récuperer ça configuration, puis il démarre, il publie son adresse au service `discovery` et par la suite il peut etre invoker par le srvice `gateway`.
+- Les microsrvices peuvent récupérer la configuration `à chaud` c à d : sans etre obligé d'arreter les microservices.
+
+</fieldset>
 
