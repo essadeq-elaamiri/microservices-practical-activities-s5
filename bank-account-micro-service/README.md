@@ -1502,6 +1502,40 @@ Note:
 
 ```
 
+### Generate Domain Classes Based on an XML Schema
+
+- The next step is to generate Java classes from the XSD file. 
+- The right approach is to do this automatically during build 
+- time by using a Maven or Gradle plugin.
+
+- The following listing shows the necessary plugin configuration for Maven:
+
+```xml
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>jaxb2-maven-plugin</artifactId>
+	<version>2.5.0</version>
+	<executions>
+		<execution>
+			<id>xjc</id>
+			<goals>
+				<goal>xjc</goal>
+			</goals>
+		</execution>
+	</executions>
+	<configuration>
+		<sources>
+			<source>${project.basedir}/src/main/resources/soap/countries.xsd</source>
+		</sources>
+	</configuration>
+</plugin>
+```
+
+- Generated classes are placed in the `target/generated-sources/jaxb/` directory.
+
+
+### Create BankAccount Repository
+
 
 
 
