@@ -1556,6 +1556,7 @@ annotations to handle the incoming SOAP requests. The following listing
 shows such a class:
 
 
+https://www.baeldung.com/spring-boot-soap-web-service 
 
 
 
