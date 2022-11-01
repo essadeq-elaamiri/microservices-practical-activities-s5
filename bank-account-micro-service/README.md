@@ -1426,6 +1426,12 @@ Note:
 
 ```xml
 <dependency>
+  <groupId>org.springframework.ws</groupId>
+  <artifactId>spring-ws-core</artifactId>
+  <version>3.1.3</version>
+</dependency>
+
+<dependency>
 	<groupId>wsdl4j</groupId>
 	<artifactId>wsdl4j</artifactId>
 </dependency>
@@ -1443,64 +1449,66 @@ Note:
 - here is the file 
 
 ```xml
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-           xmlns:tns="http://spring.io/guides/gs-producing-web-service"
-           targetNamespace="http://spring.io/guides/gs-producing-web-service"
-           elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="soap_web_service"
+           targetNamespace="soap_web_service" elementFormDefault="qualified">
 
-    <xs:element name="getAccountRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getAccountResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="bankAccountType" type="tns:bankAccountType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:complexType name="bankAccountType">
-        <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="createdAt" type="xs:date"/>
-            <xs:element name="balance" type="xs:double"/>
-            <xs:element name="currencyCode" type="tns:currencyCodeType"/>
-            <xs:element name="accountType" type="tns:accountTypeType"/>
-            <xs:element name="customer" type="tns:customerType"/>
-
-        </xs:sequence>
+  <xs:element name="getBankAccountRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+      </xs:sequence>
     </xs:complexType>
+  </xs:element>
 
-    <xs:simpleType name="currencyCodeType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="MAD"/>
-            <xs:enumeration value="EUR"/>
-            <xs:enumeration value="PLN"/>
-            <!-- can add other values-->
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:simpleType name="accountTypeType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="CURRENT_ACCOUNT"/>
-            <xs:enumeration value="SAVING_ACCOUNT"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:complexType name="customerType">
-        <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
+  <xs:element name="getBankAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="bankAccountType" type="tns:bankAccountType"/>
+      </xs:sequence>
     </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="bankAccountType">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string"/>
+      <xs:element name="createdAt" type="xs:date"/>
+      <xs:element name="balance" type="xs:double"/>
+      <xs:element name="currencyCode" type="tns:currencyCodeType"/>
+      <xs:element name="accountType" type="tns:accountTypeType"/>
+      <xs:element name="customer" type="tns:customerType"/>
+
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="currencyCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MAD"/>
+      <xs:enumeration value="EUR"/>
+      <xs:enumeration value="PLN"/>
+      <!-- can add other values-->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="accountTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CURRENT_ACCOUNT"/>
+      <xs:enumeration value="SAVING_ACCOUNT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="customerType">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
 
 </xs:schema>
 
+
+
 ```
+
+- **Note**: I used `soap_web_service` as namespace
 
 ### Generate Domain Classes Based on an XML Schema
 
@@ -1508,7 +1516,7 @@ Note:
 - The right approach is to do this automatically during build 
 - time by using a Maven or Gradle plugin.
 
-- The following listing shows the necessary plugin configuration for Maven:
+- Add The following plugin configuration for Maven:
 
 ```xml
 <plugin>
@@ -1531,10 +1539,21 @@ Note:
 </plugin>
 ```
 
-- Generated classes are placed in the `target/generated-sources/jaxb/` directory.
+- and executed `mvn clean install`
+
+- Generated classes are placed in the `target/generated-sources/jaxb/soap_web_service` directory.
+- Where `soap_web_service` is the namespace I used in my XSD file.
+- Here is the result 
+
+![soap](./imgs/soap_res.PNG)
 
 
-### Create BankAccount Repository
+
+### Create BankAccount Service Endpoint
+To create a service endpoint, you need only a POJO (Plain Old Java Object) with a few Spring WS
+annotations to handle the incoming SOAP requests. The following listing 
+(from `me/elaamiri/bankaccountmicroservice/soap/BankAccountWSEndPoint.java`) 
+shows such a class:
 
 
 

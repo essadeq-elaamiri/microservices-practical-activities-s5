@@ -21,6 +21,14 @@ public class BankAccountServiceImp implements BankAccountService {
         this.bankAccountRepository  = bankAccountRepository;
         this.bankAccountMapper = bankAccountMapper;
     }
+
+    @Override
+    public BankAccount getBankAccountById(String id){
+        BankAccount bankAccount =  bankAccountRepository.findById(id).orElseThrow(()-> {
+           return new RuntimeException("No Accound Found with this ID: "+id);
+        });
+        return bankAccount;
+    }
     @Override
     public BankAccount insertAccount(Double initialBalance, AccountType accountType) {
         /*

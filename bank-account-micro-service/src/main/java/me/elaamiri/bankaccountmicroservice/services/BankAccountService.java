@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface BankAccountService {
+    BankAccount getBankAccountById(String id);
+
     // Without DTO
     public BankAccount insertAccount(Double initialBalance, AccountType accountType);
 

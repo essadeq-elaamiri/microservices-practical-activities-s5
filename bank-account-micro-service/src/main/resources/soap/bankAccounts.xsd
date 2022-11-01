@@ -1,7 +1,7 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
-           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="soap_web_service"
+           targetNamespace="soap_web_service" elementFormDefault="qualified">
 
-    <xs:element name="getAccountRequest">
+    <xs:element name="getBankAccountRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:string"/>
@@ -9,27 +9,27 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getAccountResponse">
+    <xs:element name="getBankAccountResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="bankAccountType" type="tns:bankAccountType"/>
+                <xs:element name="bankAccountType" type="tns:bankAccountWS"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="bankAccountType">
+    <xs:complexType name="bankAccountWS">
         <xs:sequence>
             <xs:element name="id" type="xs:string"/>
             <xs:element name="createdAt" type="xs:date"/>
             <xs:element name="balance" type="xs:double"/>
-            <xs:element name="currencyCode" type="tns:currencyCodeType"/>
-            <xs:element name="accountType" type="tns:accountTypeType"/>
-            <xs:element name="customer" type="tns:customerType"/>
+            <xs:element name="currencyCode" type="tns:currencyCodeWS"/>
+            <xs:element name="accountType" type="tns:accountTypeWS"/>
+            <xs:element name="customer" type="tns:customerWS"/>
 
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="currencyCodeType">
+    <xs:simpleType name="currencyCodeWS">
         <xs:restriction base="xs:string">
             <xs:enumeration value="MAD"/>
             <xs:enumeration value="EUR"/>
@@ -37,14 +37,14 @@
             <!-- can add other values-->
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="accountTypeType">
+    <xs:simpleType name="accountTypeWS">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CURRENT_ACCOUNT"/>
             <xs:enumeration value="SAVING_ACCOUNT"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="customerType">
+    <xs:complexType name="customerWS">
         <xs:sequence>
             <xs:element name="id" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
