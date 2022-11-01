@@ -13,6 +13,7 @@
     - [creating-schema](#creating-schema)
     - [graphql-mutations](#graphql-mutations)
     - [graphql-mutations](#graphql-mutations)
+- [SOAP]()
 
 
 ![initilizr](imgs/init.png)
@@ -1121,6 +1122,7 @@ query{
 }
 ````
 
+
 RES:
 
 ```json
@@ -1411,3 +1413,32 @@ query{
 Note:
 **Projections** are for Spring Data Rest
 **DTOs** for RestControllers
+
+-------------
+
+## SOAP | Producing a SOAP web service
+- https://spring.io/guides/gs/producing-web-service/
+
+### Add the Spring-WS dependency
+
+- The project needs to include spring-ws-core and wsdl4j as dependencies in your build file.
+- Add this to `pom.xml`
+
+```xml
+<dependency>
+	<groupId>wsdl4j</groupId>
+	<artifactId>wsdl4j</artifactId>
+</dependency>
+```
+
+### Create an XML Schema (XSD) to Define the Domain
+- The web service domain is defined in an XML schema file (XSD) 
+- that Spring-WS will automatically export as a WSDL.
+
+- Under `src/main/resources/soap/bankAccounts.xsd` we create an XSD file with needed operations :
+
+
+
+
+
+
